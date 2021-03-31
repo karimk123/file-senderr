@@ -3,7 +3,7 @@ import os
 import time
 import random
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "SECRET_KEY_HERE"
+app.config["SECRET_KEY"] = "sdfsdfdffdfsdf"
 files = {}
 
 
@@ -33,7 +33,8 @@ def upload_file():
 def download():
     global files
     
-    filename = str(request.form["filename"])
+    filename = str(request.form["filename"]).replace("/", "").replace(".", "").replace("-", "")
+    filename = ''.join(filter(str.isdigit, filename))
     for letter in filename:
         if  letter.isalpha():
             flash("bas yala mesh hata3raf ta3mel download lel main.py", category="error")
@@ -41,18 +42,22 @@ def download():
 
     @after_this_request 
     def remove_file(response): 
-        if "main" not in filename:
-            try:
-                os.remove(filename) 
-            except:
-               pass 
-            return response 
+        for letter in filename:
+            if letter.isalpha:
+                return response
+
+       
+        try:
+            os.remove(filename) 
+        except:
+            pass 
+        return response 
 
     try:
         time.sleep(3)        
         return send_file(filename, as_attachment=True, attachment_filename=files[filename])
     except:
-        flash("Code not found, check the code from the reciever and try again!", category="error")
+        flash("Code not found, check the code from the sender and try again!", category="error")
         return redirect('/')
 
 
@@ -72,21 +77,24 @@ def direct_download(filename):
 
     global files
     
-
+    filename = filename.replace("/", "").replace(".", "")
+    filename = ''.join(filter(str.isdigit, filename))
     @after_this_request 
     def remove_file(response): 
-        if "main" not in filename:
-            try:
-                os.remove(filename) 
-            except:
-               pass
-            return response 
+        for letter in filename:
+            if letter.isalpha:
+                return response
+        try:
+            os.remove(filename) 
+        except:
+            pass
+        return response 
 
     try:
         time.sleep(3)        
         return send_file(filename, as_attachment=True, attachment_filename=files[filename])
     except :
-        flash("Code not found, check the code from the reciever and try again!", category="error")
+        flash("Code not found, check the code from the sender device and try again!", category="error")
         return render_template("404.html")
 
 
@@ -94,6 +102,4 @@ def direct_download(filename):
 def page_not_found(e):
     return render_template('404.html'), 404
 
-
-
-app.run(host="0.0.0.0", port=8080, debug=True)
+app.run(host="0.0.0.0", port=8080, debug=True
