@@ -3,7 +3,7 @@ import os
 import time
 import random
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "sdfsdfdffdfsdf"
+app.config["SECRET_KEY"] = "SECRET_KEY_HERE"
 files = {}
 
 
