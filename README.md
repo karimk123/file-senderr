@@ -1,4 +1,4 @@
-# File ---> Sender
+# File → Sender
 
 ![### Easily send files between devices](https://i.postimg.cc/KYg1WqHs/file-sender-demo.png)
 
